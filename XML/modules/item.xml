@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="item" to-string-ts="item.code" to-string-java="item.getCode()">
+    <code length="10" prefix="IT" searchable="yes" exist-on-table="yes"/>
+    <varchar-property name="name" label="Item Name" example="Sanstha cement" width="6" unique="yes" searchable="yes" exist-on-table="yes" basic="yes" min-length="3" />
+    <group>
+        <reference-property width="4" name="itemcategory" label="Category" to-string-java="itemcategory.getName()" to-string-ts="itemcategory.name" service-method="getAll" referenced-from="itemcategory" basic="yes" exist-on-table="yes" required="yes" live="no"  searchable="yes"/>
+        <reference-property width="4" name="unit" label="Unit" to-string-java="unit.getName()" to-string-ts="unit.name" service-method="getAll" referenced-from="unit" exist-on-table="yes" required="yes" live="no" searchable="yes"/>
+        <reference-property name="supplier" label="Supplier" to-string-java="supplier.getName()" to-string-ts="supplier.name" service-method="getAllBasic" referenced-from="supplier" required="yes"  width="4" />
+    </group>
+    <file-property basic="yes" name="photo" label="Photo" accept="image/*" exist-on-table="yes"/>
+    <group>
+        <decimal-property name="price" label="Price" example="Rs.1200.00" precision="10" scale="2" min="" max="" basic="yes" required="yes" width="4"/>
+        <decimal-property name="qty" label="Quantity" example="12" precision="12" scale="3" min="" max="" width="4"/>
+        <decimal-property name="rop" label="Rate of Pay" example="" precision="12" scale="3" min="" max="" width="4"/>
+    </group>
+
+    <text-property name="description" label="Description" example="More about item"/>
+    <reference-property insertable="no" default-value="1" name="itemstatus" label="Item Status" to-string-java="itemstatus.getName()" to-string-ts="itemstatus.name" service-method="getAll" referenced-from="itemstatus" basic="yes" searchable="yes" exist-on-table="yes" live="no"/>
+</regular-module>
+
+
+

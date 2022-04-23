@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="purchaseorder" to-string-ts="purchaseorder.code" to-string-java="purchaseorder.getCode()">
+    <code length="10" prefix="PO" searchable="yes" exist-on-table="yes"/>
+    <group>
+        <date-property name="ordereddate" label="Ordered Date" example="2012-12-31"  exist-on-table="yes" required="yes" width="6" basic="yes"/>
+        <date-property name="requireddate" label="Required Date" example="2012-12-31" exist-on-table="yes" required="yes" width="6" basic="yes"/>
+    </group>
+    <reference-property basic="yes" required="yes" name="supplier" label="Supplier" searchable="yes" exist-on-table="yes" referenced-from="supplier" service-method="getAllBasic" to-string-java="supplier.getCode()" to-string-ts="supplier.code" />
+    <text-property name="description" label="Description" example="Any Description"/>
+
+    <date-property name="reciveddate" label="Received Date" example="2012-12-31" exist-on-table="yes" width="6" insertable="no"/>
+    <reference-property required="yes" default-value="1" insertable="no" searchable="yes" exist-on-table="yes" basic="yes" name="purchaseorderstatus" label="Status" referenced-from="purchaseorderstatus" service-method="getAll" to-string-java="purchaseorderstatus.getName()" to-string-ts="purchaseorderstatus.name"/>
+
+    <sub-module label="Ordered Items" name="purchaseorderitem" to-string-ts="purchaseorderitem.id" to-string-java="purchaseorderitem.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="qty" label="Quantity" example="" precision="12" scale="4" min="1" max="99999999"/>
+    </sub-module>
+
+</regular-module>
+
+
+

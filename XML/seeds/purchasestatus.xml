@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE seed SYSTEM "./../dtd/seed.dtd">
+<seed name="purchasestatus" to-string="{name}">
+    <properties>
+        <varchar-property name="name" size="25"/>
+    </properties>
+    <values>
+        <value><data>Completed</data></value>
+        <value><data>Not Completed</data></value>
+
+    </values>
+</seed>

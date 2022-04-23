@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE seed SYSTEM "./../dtd/seed.dtd">
+<seed name="itemcategory" to-string="{name}">
+    <properties>
+        <varchar-property name="name" size="50"/>
+    </properties>
+    <values>
+        <value><data>Building</data></value>
+        <value><data>Roofing &amp; Ceiling</data></value>
+        <value><data>Steel</data></value>
+        <value><data>Garden &amp; Deco</data></value>
+        <value><data>Paint</data></value>
+        <value><data>Plumbing</data></value>
+        <value><data>Safely Items</data></value>
+        <value><data>Electrical Machines</data></value>
+        <value><data>Electrical Items</data></value>
+        <value><data>Fasteners</data></value>
+        <value><data>Home &amp; Kitchen</data></value>
+        <value><data>Bath-ware Items</data></value>
+        <value><data>Other Tools</data></value>
+    </values>
+</seed>

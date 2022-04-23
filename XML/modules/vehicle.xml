@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="vehicle" to-string-ts="vehicle.no" to-string-java="vehicle.getNo()">
+
+    <varchar-property basic="yes" name="no" label="No" example="NA-2535" min-length="6" required="yes" unique="yes" exist-on-table="yes" searchable="yes"/>
+    <reference-property name="vehicletype" label="Type" to-string-java="vehicletype.getName()" to-string-ts="vehicletype.name" service-method="getAll" referenced-from="vehicletype"  live="no" basic="yes" searchable="yes" exist-on-table="yes"/>
+    <text-property name="description" label="Description" example="More about vehicle"/>
+
+    <reference-property default-value="1" insertable="no" name="vehiclestatus" label="Status" to-string-java="vehiclestatus.getName()" to-string-ts="vehiclestatus.name" service-method="getAll" referenced-from="vehiclestatus" basic="yes" searchable="yes" exist-on-table="yes" live="no"/>
+
+</regular-module>
+
+

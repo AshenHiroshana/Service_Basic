@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="disposal" to-string-ts="disposal.code" to-string-java="disposal.getCode()">
+   <code length="10" prefix="DSP" searchable="yes" exist-on-table="yes"/>
+
+    <date-property name="date" label="Date" example="2012-12-31" exist-on-table="yes" required="yes" basic="yes"/>
+    <text-property name="reason" label="Reason" example="expired" required="yes" basic="yes"/>
+    <text-property name="description" label="Description" example="Any Description"/>
+
+    <sub-module label="Disposal Items" name="disposalitem" to-string-ts="disposalitem.id" to-string-java="disposalitem.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="qty" label="Quantity" example="" precision="12" scale="4" min="1" max="99999999"/>
+    </sub-module>
+
+</regular-module>
+
+

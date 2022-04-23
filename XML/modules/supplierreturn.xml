@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="supplierreturn" to-string-ts="supplierreturn.code" to-string-java="supplierreturn.getCode()">
+   <code length="10" prefix="SR" searchable="yes" exist-on-table="yes"/>
+    <group>
+    <reference-property basic="yes" required="yes" width="6" name="supplier" label="Supplier" referenced-from="supplier" service-method="getAllBasic" to-string-java="supplier.getName()" to-string-ts="supplier.name" searchable="yes" exist-on-table="yes" />
+    <date-property name="date" label="Date" example="2012-12-31" exist-on-table="yes" required="yes" width="6" basic="yes"/>
+    </group>
+    <text-property name="reason" label="Reason" example="expired" required="yes"/>
+    <group>
+        <decimal-property updatable="no" name="returnedamount" label="Returned Amount" example="500.00" precision="10" scale="2" min="0" max="99999999" basic="yes" exist-on-table="yes" required="yes" width="4"/>
+        <reference-property required="yes" width="4" name="paymenttype" label="Payment Type" referenced-from="paymenttype" service-method="getAll" to-string-java="paymenttype.getName()" to-string-ts="paymenttype.name" live="no" searchable="yes" exist-on-table="yes"/>
+        <reference-property required="yes" width="4" name="paymentstatus" label="Payment Status" referenced-from="paymentstatus" service-method="getAll" to-string-java="paymentstatus.getName()" to-string-ts="paymentstatus.name" live="no" searchable="yes" exist-on-table="yes"/>
+    </group>
+    <group>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequeno" label="Cheque No" example="" unique="yes"/>
+        <date-property name="chequedate" label="Cheque Date" example="2012-12-31" exist-on-table="yes" required="yes" width="6" />
+    </group>
+    <group>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequebank" label="Bank Name" example="" unique="yes"/>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequebranch" label="Branch Name" example="" unique="yes"/>
+    </group>
+    <text-property name="description" label="Description" example="Any Description"/>
+
+    <sub-module label="Returned Items" name="supplierreturnitem" to-string-ts="supplierreturnitem.id" to-string-java="supplierreturnitem.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="qty" label="Quantity" example="" precision="12" scale="4" min="1" max="99999999"/>
+        <decimal-property name="returnedunitprice" label="Unit Price" example="50.00" precision="10" scale="2" max="99999999" min=""/>
+    </sub-module>
+</regular-module>
+
+

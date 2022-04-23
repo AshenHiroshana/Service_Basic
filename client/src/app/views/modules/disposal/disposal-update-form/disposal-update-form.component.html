@@ -1,0 +1,66 @@
+<app-no-privilege *ngIf="!privilege.update" message="No privilege to change disposal details"></app-no-privilege>
+<div *ngIf="this.disposal && privilege.update">
+  <app-page-header
+    title="Disposal Change Form of {{ disposal.code }}"
+    [breadcrumbSegments]="['Disposals', 'Show All Disposals', 'Change Details of ' + disposal.code]"
+  ></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="pickerdate" formControlName="date" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerdate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerdate></mat-datepicker>
+            <mat-hint>Ex: 2012-12-31</mat-hint>
+            <mat-error *ngIf="dateField.invalid">
+              <span *ngIf="dateField.errors.required">Date is required</span>
+              <span *ngIf="dateField.errors.server">{{dateField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Reason</mat-label>
+            <textarea matInput formControlName="reason" required></textarea>
+            <mat-hint>Ex: expired</mat-hint>
+            <mat-error *ngIf="reasonField.invalid">
+              <span *ngIf="reasonField.errors.required">Reason is required</span>
+              <span *ngIf="reasonField.errors.server">{{reasonField.errors.server.join(', ')}}</span>
+              <span *ngIf="reasonField.errors.minlength">Reason should has at least null characters. </span>
+              <span *ngIf="reasonField.errors.maxlength">Reason can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-hint>Ex: Any Description</mat-hint>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <h3 class="mb-0 mat-subheading-1 font-weight-light">Disposal Items</h3>
+          <app-disposalitem-update-sub-form [min]="0" [max]="0" formControlName="disposalitems"></app-disposalitem-update-sub-form>
+          <div class="error-box" *ngIf="disposalitemsField.invalid && !disposalitemsField.pristine">
+            <p *ngIf="disposalitemsField.errors.min">Should has at least 0 disposal items</p>
+            <p *ngIf="disposalitemsField.errors.max">Maximum allowed only 0 Disposal Items</p>
+                <span *ngIf="disposalitemsField.errors.server">{{disposalitemsField.errors.server.join(', ')}}</span>
+          </div>
+        </div>
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/disposals" class="ml-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Disposals</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="button" (click)="discardChanges()"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

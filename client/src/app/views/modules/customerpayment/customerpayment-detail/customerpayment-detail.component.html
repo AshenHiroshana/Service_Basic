@@ -1,0 +1,94 @@
+<app-no-privilege *ngIf="!privilege.showOne" message="No privilege to show more details of a customerpayment"></app-no-privilege>
+<app-object-not-found *ngIf="loaded && !customerpayment" message="Customerpayment Not Found"></app-object-not-found>
+<app-loading *ngIf="!loaded"></app-loading>
+<div *ngIf="customerpayment && privilege.showOne">
+  <app-page-header
+    title="Customerpayment Detail Page of {{ customerpayment.code }}"
+    [breadcrumbSegments]="['Customerpayments', 'Show All Customerpayments', 'Details of ' + customerpayment.code]"
+  ></app-page-header>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+              <tr>
+                <th>Created Date</th>
+                <td>{{customerpayment.tocreation | date}}</td>
+              </tr>
+              <tr>
+                <th>Created Time</th>
+                <td>{{customerpayment.tocreation | date: 'shortTime': '+0530'}}</td>
+              </tr>
+              <tr>
+                <th>Creator</th>
+                <td>{{getUserDisplayName(customerpayment.creator)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-8">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+              <tr>
+                <th>Code</th>
+                <td>{{customerpayment.code}}</td>
+              </tr>
+              <tr>
+                <th>Amount</th>
+                <td>{{customerpayment.amount | currency: 'Rs.'}}</td>
+              </tr>
+              <tr>
+                <th>Date</th>
+                <td>{{customerpayment.date | date: 'fullDate'}}</td>
+              </tr>
+              <tr>
+                <th>Cheque No</th>
+                <td>{{customerpayment.chequeno}}</td>
+              </tr>
+              <tr>
+                <th>Cheque Date</th>
+                <td>{{customerpayment.chequedate | date: 'fullDate'}}</td>
+              </tr>
+              <tr>
+                <th>Bank Name</th>
+                <td>{{customerpayment.chequebank}}</td>
+              </tr>
+              <tr>
+                <th>Branch Name</th>
+                <td>{{customerpayment.chequebranch}}</td>
+              </tr>
+              <tr>
+                <th>Sale</th>
+                <td>{{customerpayment.sale.code}}</td>
+              </tr>
+              <tr>
+                <th>Payment Type</th>
+                <td>{{customerpayment.paymenttype.name}}</td>
+              </tr>
+              <tr *ngIf="customerpayment.description">
+                <th>Description</th>
+                <td [innerHTML]="customerpayment.description | nl2br"></td>
+              </tr>
+              <tr *ngIf="customerpayment.paymentstatus">
+                <th>Payment Status</th>
+                <td>{{customerpayment.paymentstatus.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="d-flex mt-5">
+    <button *ngIf="privilege.delete" (click)="delete()" class="ml-0" mat-raised-button color="warn"><mat-icon>delete</mat-icon> Delete</button>
+    <span class="spacer"></span>
+    <button *ngIf="privilege.update" routerLink="/customerpayments/edit/{{customerpayment.id}}" mat-raised-button color="accent"><mat-icon>edit</mat-icon> Change</button>
+    <button *ngIf="privilege.add" routerLink="/customerpayments/add" mat-stroked-button><mat-icon>add</mat-icon> New Customerpayment</button>
+    <button *ngIf="privilege.showAll" routerLink="/customerpayments" class="mr-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Customerpayments</button>
+  </div>
+</div>

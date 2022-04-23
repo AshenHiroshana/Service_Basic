@@ -1,0 +1,137 @@
+<app-no-privilege *ngIf="!privilege.showOne" message="No privilege to show more details of a vehicle"></app-no-privilege>
+<app-object-not-found *ngIf="loaded && !vehicle" message="Vehicle Not Found"></app-object-not-found>
+<app-loading *ngIf="!loaded"></app-loading>
+<div *ngIf="vehicle && privilege.showOne">
+  <app-page-header
+    title="Vehicle Detail Page of {{ vehicle.no}}"
+    [breadcrumbSegments]="['Vehicles', 'Show All Vehicles', 'Details of ' + vehicle.no]"
+  ></app-page-header>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="example-card">
+        <img mat-card-image *ngIf="!photo" src="assets/product.png" >
+        <img mat-card-image *ngIf="photo" src="{{photo}}" >
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+            <tr>
+              <th>Created Date</th>
+              <td>{{vehicle.tocreation | date}}</td>
+            </tr>
+            <tr>
+              <th>Created Time</th>
+              <td>{{vehicle.tocreation | date: 'shortTime': '+0530'}}</td>
+            </tr>
+            <tr>
+              <th>Creator</th>
+              <td>{{getUserDisplayName(vehicle.creator)}}</td>
+            </tr>
+            <tr>
+              <th>Vehicle Type</th>
+              <td>{{vehicle.vehicletype.name}}</td>
+            </tr>
+            <tr>
+              <th>Vehicle Brand</th>
+              <td>{{vehicle.vehiclebrand.name}}</td>
+            </tr>
+
+            <tr>
+              <th>Made year</th>
+              <td>{{vehicle.makeyear}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-8">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+            <tr>
+              <th>Owner</th>
+              <td>{{vehicle.customer.name}}</td>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <td>{{vehicle.no}}</td>
+            </tr>
+            <tr>
+              <th>Model</th>
+              <td>{{vehicle.model}}</td>
+            </tr>
+<!--            <tr>-->
+<!--              <th>Price</th>-->
+<!--              <td>{{vehicle.price | currency : 'Rs. '}}</td>-->
+<!--            </tr>-->
+            <tr>
+              <th>Brand</th>
+              <td>{{vehicle.vehiclebrand.name}}</td>
+            </tr>
+
+            <tr>
+              <th>Vehicle Type</th>
+              <td>{{vehicle.vehicletype.name}}</td>
+            </tr>
+            <tr>
+              <th>Fuel Type</th>
+              <td>{{vehicle.fueltype.name}}</td>
+            </tr>
+            <tr>
+              <th>Transmission</th>
+              <td>{{vehicle.transmission.name}}</td>
+            </tr>
+            <tr>
+              <th>Made Year</th>
+              <td>{{vehicle.makeyear}}</td>
+            </tr>
+            <tr *ngIf="vehicle.description">
+              <th>Description</th>
+              <td [innerHTML]="vehicle.description | nl2br"></td>
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="mt-3">
+        <mat-card-content>
+          <h3 class="mat-title">Owner Details</h3>
+          <table class="mt-2 mat-table table-striped w-100">
+            <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Code</th>
+              <th>Primary contact</th>
+              <th>Alternative contact</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+<!--              <td>-->
+<!--                <img *ngIf="!vehicle.photo" class="row-thumbnail" src="assets/product.png">-->
+<!--                <img *ngIf="vehicle.photo" class="row-thumbnail" src="{{thumbnailURL}}{{vehicle.photo}}">-->
+<!--              </td>-->
+              <td> {{vehicle.customer.name}} </td>
+              <td> {{vehicle.customer.code}} </td>
+              <td> {{vehicle.customer.mobile}} </td>
+              <td>  <span *ngIf="!vehicle.customer.land"> - </span> {{vehicle.customer.land}} </td>
+              <td> <button routerLink="/customers/{{vehicle.customer.id}}" class="mat-btn-sm" mat-stroked-button><mat-icon>visibility</mat-icon> More ...</button> </td>
+<!--              <td> {{vehicle.contact1}} <span *ngIf="supplier.contact2">, </span>{{supplier.contact2}}</td>-->
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="d-flex mt-5">
+    <button *ngIf="privilege.delete" (click)="delete()" class="ml-0" mat-raised-button color="warn"><mat-icon>delete</mat-icon> Delete</button>
+    <span class="spacer"></span>
+    <button *ngIf="privilege.update" routerLink="/vehicles/edit/{{vehicle.id}}" mat-raised-button color="accent"><mat-icon>edit</mat-icon> Change</button>
+    <button *ngIf="privilege.add" routerLink="/vehicles/add" mat-stroked-button><mat-icon>add</mat-icon> New Vehicle</button>
+    <button *ngIf="privilege.showAll" routerLink="/vehicles" class="mr-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Vehicles</button>
+  </div>
+</div>
+

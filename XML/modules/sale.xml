@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="sale" to-string-ts="sale.code" to-string-java="sale.getCode()">
+    <code length="10" prefix="S" searchable="yes" exist-on-table="yes"/>
+
+    <group>
+        <date-property name="date" label="Date" example="2020-12-31" required="yes" width="6" basic="yes" />
+        <reference-property name="customer" label="Customer" width="6" to-string-java="customer.getCode()" to-string-ts="customer.code" basic="yes" service-method="getAllBasic" referenced-from="customer" exist-on-table="yes" searchable="yes" required="yes"/>
+    </group>
+    <group>
+        <decimal-property name="total" label="Total" example="Rs.1500" precision="10" scale="2" min="" max="" required="yes" width="6" basic="yes" />
+        <decimal-property name="balance" label="Balance" example="Rs.200" precision="10" scale="2" min="" max="" width="6" />
+    </group>
+    <group>
+        <reference-property width="6" name="saletype" label="Type" to-string-java="saletype.getName()" to-string-ts="saletype.name" service-method="getAll" referenced-from="saletype"  live="no" basic="yes" searchable="yes" exist-on-table="yes"/>
+        <date-property name="datetobepayed" label="Date to be payed" example="2020-12-31" width="6" />
+    </group>
+    <text-property name="description" label="Description" example="More about sale"/>
+
+    <sub-module label="Saled Items" name="saleitem" to-string-ts="saleitem.id" to-string-java="saleitem.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="qty" label="Quantity" example="" precision="12" scale="4" min="1" max="99999999"/>
+        <decimal-property name="unitprice" label="Unit Price" example="50.00" precision="10" scale="2" max="99999999" min=""/>
+        <decimal-property name="subtotal" label="Sub Total" example="5000.00" precision="10" scale="2" max="99999999" min=""/>
+    </sub-module>
+
+    <sub-module label="Transport" name="transport" to-string-ts="transport.id" to-string-java="transport.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="fee" label="Fee" example="" precision="10" scale="2" min="" max="99999999"/>
+        <text-property name="location" label="Location" example=""/>
+    </sub-module>
+    
+</regular-module>
+
+
+

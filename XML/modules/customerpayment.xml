@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="customerpayment" to-string-ts="customerpayment.code" to-string-java="customerpayment.getCode()">
+    <code length="10" prefix="CP" searchable="yes" exist-on-table="yes"/>
+
+    <group>
+        <decimal-property updatable="no" name="amount" label="Amount" example="500.00" precision="10" scale="2" min="0" max="99999999" basic="yes" exist-on-table="yes" required="yes" width="6"/>
+        <date-property name="date" label="Date" example="2012-12-31" exist-on-table="yes" required="yes" width="6" basic="yes"/>
+    </group>
+    <group>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequeno" label="Cheque No" example="" unique="yes"/>
+        <date-property name="chequedate" label="Cheque Date" example="2012-12-31" exist-on-table="yes" required="yes" width="6" />
+    </group>
+    <group>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequebank" label="Bank Name" example="" unique="yes"/>
+        <varchar-property exist-on-table="yes" searchable="yes" required="yes" width="6" name="chequebranch" label="Branch Name" example="" unique="yes"/>
+    </group>
+    <group>
+        <reference-property basic="yes" required="yes" width="6" name="sale" label="Sale" referenced-from="sale" service-method="getAllBasic" to-string-java="sale.getCode()" to-string-ts="sale.code" />
+        <reference-property required="yes" width="6" name="paymenttype" label="Payment Type" referenced-from="paymenttype" service-method="getAll" to-string-java="paymenttype.getName()" to-string-ts="paymenttype.name" live="no" searchable="yes" exist-on-table="yes"/>
+    </group>
+    <text-property name="description" label="Description" example="Any description"/>
+
+    <reference-property insertable="no" default-value="1" name="paymentstatus" label="Payment Status" to-string-java="paymentstatus.getName()" to-string-ts="paymentstatus.name" service-method="getAll" referenced-from="paymentstatus" basic="yes" live="no" searchable="yes" exist-on-table="yes"/>
+</regular-module>
+
+

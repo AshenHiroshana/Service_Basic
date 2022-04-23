@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="supplier" to-string-ts="supplier.code + ' ' + supplier.name" to-string-java="supplier.getCode() + #quat;-#quat; + supplier.getName()">
+    <code length="10" prefix="SU" searchable="yes" exist-on-table="yes"/>
+        <varchar-property basic="yes" exist-on-table="yes" searchable="yes" required="yes" width="8" name="name" label="Name" example="Kamal Perera"/>
+    <group>
+        <char-property name="contact1" label="Primary contact" example="0789456123" size="10" required="yes" width="6" pattern="^([0][0-9]{9})$" basic="yes"/>
+        <char-property name="contact2" label="Alternate contact" example="0789456123" size="10" width="6" pattern="^([0][0-9]{9})$"/>
+    </group>
+    <group>
+        <char-property name="fax" label="Fax" example="0112456123" size="10" width="6" pattern="^([0][0-9]{9})$"/>
+        <varchar-property name="email" label="Email" example="user@sample.com" min-length="5" width="6" basic="yes"/>
+    </group>
+    <group>
+        <text-property name="address" label="Address" example="123, Colombo road, Gampaha" min-length="4" max-length="1000" required="yes" width="9"/>
+        <decimal-property name="creditallowed" label="Credit Allowed" example="" precision="10" scale="2" min="" max=""/>
+    </group>
+    <text-property name="description" label="Description" max-length="65536" example="More about supplier"/>
+    <reference-property insertable="no" default-value="1" name="supplierstatus" label="supplier Status" to-string-java="supplierstatus.getName()" to-string-ts="supplierstatus.name" service-method="getAll" referenced-from="supplierstatus" basic="yes" searchable="yes" exist-on-table="yes" live="no"/>
+</regular-module>

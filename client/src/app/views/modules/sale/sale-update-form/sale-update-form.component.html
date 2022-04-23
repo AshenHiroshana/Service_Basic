@@ -1,0 +1,127 @@
+<app-no-privilege *ngIf="!privilege.update" message="No privilege to change sale details"></app-no-privilege>
+<div *ngIf="this.sale && privilege.update">
+  <app-page-header
+    title="Sale Change Form of {{ sale.code }}"
+    [breadcrumbSegments]="['Sales', 'Show All Sales', 'Change Details of ' + sale.code]"
+  ></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="pickerdate" formControlName="date" required>
+                <mat-datepicker-toggle matSuffix [for]="pickerdate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdate></mat-datepicker>
+                <mat-hint>Ex: 2020-12-31</mat-hint>
+                <mat-error *ngIf="dateField.invalid">
+                  <span *ngIf="dateField.errors.required">Date is required</span>
+                  <span *ngIf="dateField.errors.server">{{dateField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Customer</mat-label>
+                <mat-select formControlName="customer" required>
+                  <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.code}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="customerField.invalid">
+                  <span *ngIf="customerField.errors.required">Select at lease one customer</span>
+                  <span *ngIf="customerField.errors.server">{{customerField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Total</mat-label>
+                <input type="number" matInput formControlName="total" required>
+                <mat-hint>Ex: Rs.1500</mat-hint>
+                <mat-error *ngIf="totalField.invalid">
+                  <span *ngIf="totalField.errors.required">Total is required</span>
+                  <span *ngIf="totalField.errors.server">{{totalField.errors.server.join(', ')}}</span>
+                  <span *ngIf="totalField.errors.min">Total should be equal or greater than 0</span>
+                  <span *ngIf="totalField.errors.max">Total should be equal or less than 99999999</span>
+                  <span *ngIf="totalField.errors.pattern">Total is invalid.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Balance</mat-label>
+                <input type="number" matInput formControlName="balance" >
+                <mat-hint>Ex: Rs.200</mat-hint>
+                <mat-error *ngIf="balanceField.invalid">
+                  <span *ngIf="balanceField.errors.server">{{balanceField.errors.server.join(', ')}}</span>
+                  <span *ngIf="balanceField.errors.min">Balance should be equal or greater than 0</span>
+                  <span *ngIf="balanceField.errors.max">Balance should be equal or less than 99999999</span>
+                  <span *ngIf="balanceField.errors.pattern">Balance is invalid.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="saletype" >
+                  <mat-option *ngFor="let saletype of saletypes" [value]="saletype.id">{{saletype.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="saletypeField.invalid">
+                  <span *ngIf="saletypeField.errors.server">{{saletypeField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date to be payed</mat-label>
+                <input matInput [matDatepicker]="pickerdatetobepayed" formControlName="datetobepayed" >
+                <mat-datepicker-toggle matSuffix [for]="pickerdatetobepayed"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdatetobepayed></mat-datepicker>
+                <mat-hint>Ex: 2020-12-31</mat-hint>
+                <mat-error *ngIf="datetobepayedField.invalid">
+                  <span *ngIf="datetobepayedField.errors.server">{{datetobepayedField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-hint>Ex: More about sale</mat-hint>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <h3 class="mb-0 mat-subheading-1 font-weight-light">Saled Items</h3>
+          <app-saleitem-update-sub-form [min]="0" [max]="0" formControlName="saleitems"></app-saleitem-update-sub-form>
+          <div class="error-box" *ngIf="saleitemsField.invalid && !saleitemsField.pristine">
+            <p *ngIf="saleitemsField.errors.min">Should has at least 0 saled items</p>
+            <p *ngIf="saleitemsField.errors.max">Maximum allowed only 0 Saled Items</p>
+                <span *ngIf="saleitemsField.errors.server">{{saleitemsField.errors.server.join(', ')}}</span>
+          </div>
+        </div>
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/sales" class="ml-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Sales</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="button" (click)="discardChanges()"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

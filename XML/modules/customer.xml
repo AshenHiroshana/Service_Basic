@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="customer" to-string-ts="customer.code + ' ' + customer.name" to-string-java="customer.getCode() + #quat;-#quat; + customer.getName()">
+    <code length="10" prefix="CU" searchable="yes" exist-on-table="yes"/>
+    <group>
+        <reference-property basic="yes" required="yes" width="3" name="nametitle" label="Title" referenced-from="nametitle" service-method="getAll" to-string-java="nametitle.getName()" to-string-ts="nametitle.name" live="no"/>
+        <varchar-property basic="yes" exist-on-table="yes" searchable="yes" required="yes" width="6" name="name" label="Name" example="Kamal Perera"/>
+        <varchar-property required="yes" unique="yes" exist-on-table="yes" searchable="yes" width="3" name="nic" label="NIC Number" example="940081009V" min-length="10" max-length="12" pattern="^(([0-9]{12})|([0-9]{9}[vVxX]))$"/>
+    </group>
+    <group>
+        <char-property name="contact1" label="Primary contact" example="0789456123" size="10" required="yes" width="4" pattern="^([0][0-9]{9})$" basic="yes"/>
+        <char-property name="contact2" label="Alternate contact" example="0789456123" size="10" width="4" pattern="^([0][0-9]{9})$"/>
+        <varchar-property name="email" label="Email" example="user@sample.com" min-length="5" width="4" basic="yes"/>
+    </group>
+    <group>
+        <text-property name="address" label="Address" example="123, Colombo road, Gampaha" min-length="9" max-length="1000" required="yes" width="9"/>
+        <decimal-property name="creditlimit" label="Credit Limit" example="" precision="10" scale="2" min="0" max="99999999" width="3"/>
+    </group>
+    <text-property name="description" label="Description"  example="More about customer"/>
+
+    <reference-property insertable="no" default-value="1" name="customerstatus" label="Customer Status" to-string-java="customerstatus.getName()" to-string-ts="customerstatus.name" service-method="getAll" referenced-from="customerstatus" basic="yes" searchable="yes" exist-on-table="yes" live="no"/>
+</regular-module>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE regular-module SYSTEM "./../dtd/regular-module.dtd">
+<regular-module name="purchase" to-string-ts="purchase.code" to-string-java="purchase.getCode()">
+    <code length="10" prefix="P" searchable="yes" exist-on-table="yes"/>
+    <group>
+        <date-property name="date" label="Date" example="2020-12-31" required="yes" exist-on-table="yes" width="6"/>
+        <reference-property name="supplier" label="Supplier" width="6" to-string-java="supplier.getName()" to-string-ts="supplier.name" service-method="getAllBasic" referenced-from="supplier" exist-on-table="yes" searchable="yes" required="yes"/>
+    </group>
+    <group>
+        <decimal-property updatable="no" name="total" label="Total" example="500.00" precision="10" scale="2" min="0" max="99999999" basic="yes" exist-on-table="yes" required="yes" width="6"/>
+        <reference-property name="purchaseorder" label="Purchaseorder" width="6" to-string-java="purchaseorder.getCode()" to-string-ts="purchaseorder.code" service-method="getAllBasic" referenced-from="purchaseorder" exist-on-table="yes" searchable="yes"/>
+    </group>
+
+    <text-property name="description" label="Description" example="Any Description"/>
+    <reference-property required="yes" default-value="1" insertable="no" searchable="yes" exist-on-table="yes" basic="yes" name="purchasestatus" label="Status" referenced-from="purchasestatus" service-method="getAll" to-string-java="purchasestatus.getName()" to-string-ts="purchasestatus.name"/>
+
+    <sub-module label="Purchased Items" name="purchaseitem" to-string-ts="purchaseitem.id" to-string-java="purchaseitem.getId()">
+        <reference-property name="item" label="Items" to-string-java="item.getName()" to-string-ts="item.name" service-method="getAllBasic" referenced-from="item" basic="yes"/>
+        <decimal-property name="qty" label="Quantity" example="" precision="12" scale="4" min="1" max="99999999"/>
+        <decimal-property name="unitprice" label="Unit Price" example="50.00" precision="10" scale="2" max="99999999" min=""/>
+        <decimal-property name="subtotal" label="Sub Total" example="5000.00" precision="10" scale="2" max="99999999" min=""/>
+    </sub-module>
+
+</regular-module>

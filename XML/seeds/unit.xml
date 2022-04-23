@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE seed SYSTEM "./../dtd/seed.dtd">
+<seed name="unit" to-string="{name}">
+    <properties>
+        <varchar-property name="name" size="25"/>
+    </properties>
+    <values>
+        <value><data>Item</data></value>
+        <value><data>Cube</data></value>
+        <value><data>Gram (g)</data></value>
+        <value><data>Kilogram (kg)</data></value>
+        <value><data>Meter (m)</data></value>
+        <value><data>Centimeter (cm)</data></value>
+        <value><data>Liter (l)</data></value>
+        <value><data>Mililiter (ml)</data></value>
+    </values>
+</seed>
